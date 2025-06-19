@@ -7,8 +7,10 @@ import json
 import requests
 from core.display import show_pokemon
 import metadata
+from core.dynamoUpdate import update_dynamo_db
 
 POKEMON_LIST_PATH = "data/pokemon_list.json"
+
 
 def get_basic_pokemon_info(pokemon_id, my_pokemon_list):
     """
@@ -39,3 +41,6 @@ def get_basic_pokemon_info(pokemon_id, my_pokemon_list):
         json.dump(my_pokemon_list, f, indent=4)
 
     print("\nPokémon saved to pokemon_list.json")
+
+    update_dynamo_db()
+    print(f"Pokémon {pokemon_info['name']} added to your collection.")
